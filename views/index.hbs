@@ -1,0 +1,74 @@
+<style>
+    /* Estado inicial: invisible y preparado para animar */
+    .tabla-animada {
+        opacity: 0;
+        transform: translateY(20px); /* Un pequeño desplazamiento hacia abajo */
+        transition: opacity 1.5s ease-out, transform 1.5s ease-out;
+    }
+
+    /* Estado final: visible y en su lugar */
+    .tabla-animada.aparecer {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    .fila-arrastrable {
+        cursor: grab; /* Muestra una manita abierta */
+    }
+    .fila-arrastrable:active {
+        cursor: grabbing; /* Muestra una manita cerrada al hacer clic */
+    }
+</style>
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-bordered tabla-animada" id="miTabla">
+        <caption class="text-muted small fst-italic">
+            <i class="bi bi-info-circle"></i>
+            Funciones Pro: Doble clic para copiar datos | Arrastra filas para ordenar.
+        </caption>
+        <thead class="table-dark">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Stock</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#each productos}}
+            <!-- Mantenemos la clase fila-arrastrable para la lógica JS -->
+            <tr class="fila-arrastrable">
+                <td>{{this.id}}</td>
+                <td>{{this.nombre}}</td>
+                <td>{{this.descripcion}}</td>
+                <td>${{this.precio}}</td>
+                <td>
+                    <span class="badge bg-primary">{{this.stock}}</span>
+                </td>
+                <td>
+                    <a href="/editar/{{this.id}}" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="/eliminar/{{this.id}}" class="btn btn-sm btn-danger">Borrar</a>
+                </td>
+            </tr>
+        {{else}}
+            <tr>
+                <td colspan="6" class="text-center">No hay productos registrados aún.</td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<!-- Contenedor para la notificación (Toast) -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header bg-success text-white">
+            <strong class="me-auto">Portapapeles</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            ✅ Texto copiado exitosamente.
+        </div>
+    </div>
+</div>
+</div>

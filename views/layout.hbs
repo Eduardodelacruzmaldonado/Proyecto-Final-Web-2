@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario Tienda</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<!-- Barra de Navegación -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand" href="/">📦 Gestión de Inventario</a>
+        <div class="navbar-nav">
+            <a class="nav-link" href="/">Productos</a>
+            <a class="nav-link" href="/crear">Agregar Nuevo</a>
+            <a class="nav-link" href="/visitantes">Comunidad</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Aquí se inyectan las vistas individuales -->
+<div class="container">
+    {{{body}}}
+</div>
+
+<!-- Bootstrap JS (necesario para algunos eventos) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="/javascripts/main.js"></script>
+</body>
+</html>

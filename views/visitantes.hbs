@@ -1,0 +1,42 @@
+<div class="container mt-4">
+    <h2 class="text-center">Suscríbete a Novedades</h2>
+    <p class="text-center text-muted">Déjanos tus datos para recibir ofertas y cupones. (Además detectaremos tu navegador mágicamente 🪄</p>
+
+    <!-- Formulario para usuarios REALES -->
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <form action="/registrar-visitante" method="POST" class="row g-3">
+                <div class="col-md-5">
+                    <input type="text" name="nombre" class="form-control" placeholder="Tu Nombre" required>
+                </div>
+                <div class="col-md-5">
+                    <input type="email" name="correo" class="form-control" placeholder="Tu Correo" required>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-success w-100">Firmar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Lista de Usuarios (Mezcla de ficticios y reales) -->
+    <div class="list-group">
+        {{#each visitantes}}
+            <div class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{this.nombre}}</h5>
+                    <small class="text-muted">{{this.fecha_registro}}</small>
+                </div>
+                <p class="mb-1">Correo: {{this.correo}}</p>
+                <!-- Aquí mostramos la info técnica capturada -->
+                <small class="text-primary">
+                    <i class="bi bi-cpu"></i> Info Detectada: {{this.datos_tecnicos}}
+                </small>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="text-center mt-3 mb-5">
+        <a href="/" class="btn btn-secondary">Volver al Inventario</a>
+    </div>
+</div>
