@@ -1,0 +1,30 @@
+<div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+        <div class="card shadow">
+            <div class="card-header bg-dark text-white text-center">
+                <h3>🔐 Alta de Operador</h3>
+            </div>
+            <div class="card-body">
+                <p class="text-center text-muted">
+                    Ingrese las credenciales del nuevo colaborador para otorgar permisos de acceso al sistema.
+                </p>
+                <form action="/registrar-visitante" method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Nombre Completo</label>
+                        <input type="text" name="nombre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Correo Electrónico</label>
+                        <input type="email" name="correo" class="form-control" required>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-success">Registrarme</button>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer text-center">
+                <a href="/visitantes" class="text-decoration-none">Ver quién ya está registrado &rarr;</a>
+            </div>
+        </div>
+    </div>
+</div>

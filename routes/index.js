@@ -70,18 +70,16 @@ router.post('/actualizar/:id', async function(req, res) {
 
     res.redirect('/');
 });
+/* --- ZONA DE VISITANTES (Separada) --- */
 
-/* GET: Ver lista de visitantes */
-router.get('/visitantes', async function(req, res) {
-    const [rows] = await db.query('SELECT * FROM visitantes');
-    res.render('visitantes', { title: 'Usuarios Registrados', visitantes: rows });
+/* 1. GET: Mostrar SOLO el formulario de registro */
+router.get('/registro', function(req, res) {
+    res.render('registro', { title: 'Regístrate' });
 });
 
-/* POST: Registrar un visitante REAL capturando su navegador */
+/* 2. POST: Procesar el registro y mandar a la lista */
 router.post('/registrar-visitante', async function(req, res) {
     const { nombre, correo } = req.body;
-
-    // AQUÍ ESTÁ LA MAGIA: Capturamos la info del navegador automáticamente
     const infoTecnica = req.get('User-Agent');
 
     await db.query(
@@ -89,6 +87,28 @@ router.post('/registrar-visitante', async function(req, res) {
         [nombre, correo, infoTecnica]
     );
 
+    // Al terminar, nos manda a la página de la lista
     res.redirect('/visitantes');
+});
+
+/* 3. GET: Mostrar SOLO la lista de usuarios */
+router.get('/visitantes', async function(req, res) {
+    const [rows] = await db.query('SELECT * FROM visitantes');
+
+    // AQUÍ ESTÁ EL TRUCO: Creamos una versión "limpia" de los datos
+    const visitantesLimpios = rows.map(row => ({
+        ...row, // Copiamos nombre, correo, etc.
+        // Creamos una nueva propiedad con la fecha bonita en español
+        fecha_formateada: new Date(row.fecha_registro).toLocaleString('es-MX', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+        })
+    }));
+
+    // Enviamos 'visitantesLimpios' en lugar de 'rows'
+    res.render('visitantes', { title: 'Personal', visitantes: visitantesLimpios });
 });
 module.exports = router;
